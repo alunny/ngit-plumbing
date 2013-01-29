@@ -1,0 +1,20 @@
+{
+  "name": "git-plumbing",
+  "version": "0.0.0",
+  "description": "low-level git commands",
+  "main": "git-plumbing.js",
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "repository": "git://github.com/alunny/git-plumbing",
+  "keywords": [
+    "git",
+    "sha",
+    "objectdatabase"
+  ],
+  "author": "alunny",
+  "license": "BSD",
+  "devDependencies": {
+    "nodeunit": "~0.7.4"
+  }
+}
