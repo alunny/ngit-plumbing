@@ -1,12 +1,12 @@
 {
-  "name": "git-plumbing",
+  "name": "ngit-plumbing",
   "version": "0.0.0",
   "description": "low-level git commands",
   "main": "git-plumbing.js",
   "scripts": {
     "test": "nodeunit test"
   },
-  "repository": "git://github.com/alunny/git-plumbing",
+  "repository": "git://github.com/alunny/ngit-plumbing",
   "keywords": [
     "git",
     "sha",
