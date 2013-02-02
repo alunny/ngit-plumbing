@@ -28,3 +28,19 @@ exports['test commit'] = function (test) {
         });
     });
 }
+
+exports['test tree'] = function (test) {
+    var SHA = 'f3a28416e4c8a742e0dde37693701ce2e7773fe2',
+        raw = fs.readFileSync('test/gitobjects/f3/a28416e4c8a742e0dde37693701ce2e7773fe2');
+
+    zlib.inflate(raw, function (err, decoded) {
+        var expected = decoded.toString('ascii');
+
+        provideContent(SHA, 'test/gitobjects', function (err, data) {
+            if (err) throw err;
+
+            test.equal(data.toString(), expected);
+            test.done();
+        });
+    });
+}
