@@ -36,6 +36,10 @@ exports['test tree'] = function (test) {
     zlib.inflate(raw, function (err, decoded) {
         var expected = decoded.toString('ascii');
 
+        fs.writeFileSync('decoded.gz', decoded);
+
+        console.log(expected);
+
         provideContent(SHA, 'test/gitobjects', function (err, data) {
             if (err) throw err;
 
