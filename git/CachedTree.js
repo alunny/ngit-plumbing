@@ -1,3 +1,5 @@
+var asciiDigit = require('../helpers').asciiDigit;
+
 function CachedTree(buffer) {
     var offset = 0, entry, count;
 
@@ -42,10 +44,6 @@ function CachedTreeEntry() {
     this.entryCount     = '';
     this.subtreeCount   = '';
     this.sha            = '';
-}
-
-function asciiDigit(val) {
-    return (val - 48).toString();
 }
 
 module.exports = CachedTree;
