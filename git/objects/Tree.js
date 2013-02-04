@@ -1,7 +1,7 @@
 var asciiDigit = require('../../helpers').asciiDigit;
 
 function Tree(buffer, sha) {
-    var offset, length = '', entry;
+    var offset, length = '', entry, nameStart, nameEnd;
 
     this.sha = sha;
     this.objects = [];
@@ -23,27 +23,44 @@ function Tree(buffer, sha) {
         throw new Error('incorrect content length');
     }
 
-    console.log();
-
     while (offset < buffer.length) {
         entry = {
-            mode: buffer.slice(offset, offset += 4).toString(),
+            mode: '',
             type: null,
             name: '',
             sha: null
         };
 
-        entry.type = offset++;
-
-        while (buffer[offset] != 0) {
-            entry.name += buffer[offset++].toString();
+        while(buffer[offset] != 32) {
+            entry.mode += asciiDigit(buffer[offset++]);
         }
-        
-        offset++;
+
+        if (entry.mode == '40000') entry.mode = '040000';
+
+        setObjType(entry);
+
+        offset++; // space
+
+        nameStart = offset;
+        while (buffer[offset] != 0) {
+            nameEnd = offset++;
+        }
+
+        entry.name = buffer.slice(nameStart, nameEnd + 1).toString();
+
+        offset++; // null
 
         entry.sha = buffer.slice(offset, offset += 20).toString('hex');
 
         this.objects.push(entry);
+    }
+}
+
+function setObjType(entry) {
+    if (entry.mode == '040000') {
+        entry.type = 'tree';
+    } else if (entry.mode == '100644') {
+        entry.type = 'blob';
     }
 }
 
